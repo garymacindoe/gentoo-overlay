@@ -1,0 +1,24 @@
+diff -uar twutils-0.2.old//twkalc/kcalc.h twutils-0.2//twkalc/kcalc.h
+--- twutils-0.2.old//twkalc/kcalc.h	2001-06-22 19:35:03.000000000 +0100
++++ twutils-0.2//twkalc/kcalc.h	2011-07-24 14:28:23.509522006 +0100
+@@ -208,16 +208,16 @@
+     void helpclicked();
+     void set_colors();
+     /* user clicked on display. let's declare we own the selection */
+-    static void QtCalculator::display_clicked() {
++    static void display_clicked() {
+ 	dpy->exportSelection();
+     }
+     /* user clicked to paste selection. let's ask to who owns it. */
+     /* twin server BUG: we get this only if user middle-clicks outside gadgets/buttons */
+-    static void QtCalculator::user_wants_to_paste() {
++    static void user_wants_to_paste() {
+ 	dpy->requestSelection();
+     }
+     /* some client wants our selection. let's give it to him */
+-    static void QtCalculator::someclient_wants_selection(TEvent *E, void *) {
++    static void someclient_wants_selection(TEvent *E, void *) {
+ 	extern char	display_str[];
+ 	static char buf[TW_MAX_MIMELEN];
+     
+Only in twutils-0.2//twkalc: kcalc.h~
