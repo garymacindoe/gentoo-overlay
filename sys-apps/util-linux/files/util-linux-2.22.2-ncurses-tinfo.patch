@@ -1,0 +1,89 @@
+--- util-linux-2.22.2.orig/configure	2014-01-31 17:36:08.000000000 +0000
++++ util-linux-2.22.2/configure	2014-01-31 17:38:13.000000000 +0000
+@@ -17355,13 +17355,13 @@
+ 
+ 
+   have_ncurses=yes
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for initscr in -lncursesw" >&5
+-$as_echo_n "checking for initscr in -lncursesw... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for initscr in $(pkg-config --libs ncursesw)" >&5
++$as_echo_n "checking for initscr in $(pkg-config --libs ncursesw)... " >&6; }
+ if ${ac_cv_lib_ncursesw_initscr+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lncursesw  $LIBS"
++LIBS="$(pkg-config --libs ncursesw) $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -17396,7 +17396,7 @@
+ #define HAVE_LIBNCURSESW 1
+ _ACEOF
+ 
+-  LIBS="-lncursesw $LIBS"
++  LIBS="$(pkg-config --libs ncursesw) $LIBS"
+ 
+ else
+   have_ncurses=no
+@@ -17424,20 +17424,20 @@
+ 
+ done
+ 
+-	NCURSES_LIBS="-lncursesw"
++	NCURSES_LIBS="$(pkg-config --libs ncursesw)"
+       fi
+     fi
+     if test "x$have_ncurses" = xno; then
+ 
+ 
+   have_ncurses=yes
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for initscr in -lncurses" >&5
+-$as_echo_n "checking for initscr in -lncurses... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for initscr in $(pkg-config --libs ncurses)" >&5
++$as_echo_n "checking for initscr in $(pkg-config --libs ncurses)... " >&6; }
+ if ${ac_cv_lib_ncurses_initscr+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lncurses  $LIBS"
++LIBS="$(pkg-config --libs ncurses) $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -17472,7 +17472,7 @@
+ #define HAVE_LIBNCURSES 1
+ _ACEOF
+ 
+-  LIBS="-lncurses $LIBS"
++  LIBS="$(pkg-config --libs ncurses) $LIBS"
+ 
+ else
+   have_ncurses=no
+@@ -17488,7 +17488,7 @@
+ 
+ 
+       if test "x$have_ncurses" = xyes; then
+-	NCURSES_LIBS="-lncurses"
++	NCURSES_LIBS="$(pkg-config --libs ncurses)"
+       fi
+     fi
+ 
+--- util-linux-2.22.2.orig/configure.ac	2014-01-31 17:36:08.000000000 +0000
++++ util-linux-2.22.2/configure.ac	2014-01-31 17:38:31.000000000 +0000
+@@ -606,13 +606,13 @@
+       UL_CHECK_LIB(ncursesw, initscr, ncurses)
+       if test "x$have_ncurses" = xyes; then
+ 	AC_CHECK_HEADERS([ncursesw/ncurses.h])
+-	NCURSES_LIBS="-lncursesw"
++	NCURSES_LIBS="$(pkg-config --libs ncursesw)"
+       fi
+     fi
+     if test "x$have_ncurses" = xno; then
+       UL_CHECK_LIB(ncurses, initscr)
+       if test "x$have_ncurses" = xyes; then
+-	NCURSES_LIBS="-lncurses"
++	NCURSES_LIBS="$(pkg-config --libs ncurses)"
+       fi
+     fi
+   ])
