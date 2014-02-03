@@ -1,0 +1,13 @@
+diff -Nuar work.old/kernel/nv-acpi.c work/kernel/nv-acpi.c
+--- work.old/kernel/nv-acpi.c	2014-02-03 00:50:52.726642885 +0000
++++ work/kernel/nv-acpi.c	2014-02-03 00:52:29.629973341 +0000
+@@ -303,7 +303,9 @@
+ 
+     if (pNvAcpiObject->notify_handler_installed)
+     {
++    #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+         NV_ACPI_OS_WAIT_EVENTS_COMPLETE();
++    #endif
+ 
+         // remove event notifier
+         status = acpi_remove_notify_handler(device->handle, ACPI_DEVICE_NOTIFY, nv_acpi_event);
