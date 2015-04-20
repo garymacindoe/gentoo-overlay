@@ -1,0 +1,30 @@
+File sys-apps2/tuxonice-userui-1.1-r2/.ipc_in is a fifo while file sys-apps/tuxonice-userui-1.1-r2/.ipc_in is a fifo
+File sys-apps2/tuxonice-userui-1.1-r2/.ipc_out is a fifo while file sys-apps/tuxonice-userui-1.1-r2/.ipc_out is a fifo
+diff -Nuar sys-apps2/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.c sys-apps/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.c
+--- sys-apps2/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.c	2014-10-16 00:21:30.532221093 +0100
++++ sys-apps/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.c	2014-10-16 00:22:28.495555738 +0100
+@@ -27,8 +27,8 @@
+ #include <assert.h>
+ 
+ #include <ft2build.h>
+-#include <freetype/ftoutln.h>
+-#include <freetype/ttnameid.h>
++#include FT_OUTLINE_H
++#include FT_TRUETYPE_IDS_H
+ 
+ #include "splash.h"
+ 
+diff -Nuar sys-apps2/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.h sys-apps/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.h
+--- sys-apps2/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.h	2014-10-16 00:21:30.532221093 +0100
++++ sys-apps/tuxonice-userui-1.1-r2/work/tuxonice-userui/fbsplash/ttf.h	2014-10-16 00:22:34.392222538 +0100
+@@ -1,8 +1,8 @@
+ #ifndef _TTF_H
+ #define _TTF_H
+ #include <ft2build.h>
+-#include <freetype/ftoutln.h>
+-#include <freetype/ttnameid.h>
++#include FT_OUTLINE_H
++#include FT_TRUETYPE_IDS_H
+ 
+ #define CACHED_METRICS  0x10
+ #define CACHED_BITMAP   0x01
