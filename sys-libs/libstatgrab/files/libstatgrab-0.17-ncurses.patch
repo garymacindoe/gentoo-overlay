@@ -1,0 +1,51 @@
+--- libstatgrab-0.17/acinclude.m4	2007-01-06 01:01:36.000000000 +0000
++++ libstatgrab-0.17/acinclude.m4	2014-10-16 00:07:08.582201588 +0100
+@@ -15,7 +15,7 @@
+    if test "$with_ncurses" != no
+    then
+      AC_CACHE_CHECK([for working ncurses - ncurses.h], mp_cv_ncurses1,
+-       [LIBS="$mp_save_LIBS $SAIDARLIBS -lncurses"
++       [LIBS="$mp_save_LIBS $SAIDARLIBS $(pkg-config --libs ncurses)"
+         CPPFLAGS="$mp_save_CPPFLAGS $SAIDARCPPFLAGS"
+         AC_TRY_LINK(
+           [#include <ncurses.h>],
+@@ -25,10 +25,10 @@
+      then
+        AC_DEFINE([HAVE_NCURSES_H])
+        AC_DEFINE([CURSES_HEADER_FILE], [<ncurses.h>])
+-       CURSES_LIB="-lncurses"
++       CURSES_LIB="$(pkg-config --libs ncurses)"
+      else
+        AC_CACHE_CHECK([for working ncurses - ncurses/ncurses.h], mp_cv_ncurses2,
+-         [LIBS="$mp_save_LIBS $SAIDARLIBS -lncurses"
++         [LIBS="$mp_save_LIBS $SAIDARLIBS $(pkg-config --libs ncurses)"
+           CPPFLAGS="$mp_save_CPPFLAGS $SAIDARCPPFLAGS"
+           AC_TRY_LINK(
+             [#include <ncurses/ncurses.h>],
+@@ -38,7 +38,7 @@
+        then
+          AC_DEFINE([HAVE_NCURSES_H])
+          AC_DEFINE([CURSES_HEADER_FILE], [<ncurses/ncurses.h>])
+-         CURSES_LIB="-lncurses"
++         CURSES_LIB="$(pkg-config --libs ncurses)"
+        fi
+      fi
+    fi
+@@ -46,7 +46,7 @@
+    if test ! "$CURSES_LIB"
+    then
+      AC_CACHE_CHECK([for working curses], mp_cv_curses,
+-       [LIBS="$mp_save_LIBS $SAIDARLIBS -lcurses"
++       [LIBS="$mp_save_LIBS $SAIDARLIBS $(pkg-config --libs curses)"
+         CPPFLAGS="$mp_save_CPPFLAGS $SAIDARCPPFLAGS"
+         AC_TRY_LINK(
+           [#include <curses.h>],
+@@ -56,7 +56,7 @@
+      then
+        AC_DEFINE([HAVE_CURSES_H])
+        AC_DEFINE([CURSES_HEADER_FILE], [<curses.h>])
+-       CURSES_LIB="-lcurses"
++       CURSES_LIB="$(pkg-config --libs curses)"
+      fi
+    fi
+ 
