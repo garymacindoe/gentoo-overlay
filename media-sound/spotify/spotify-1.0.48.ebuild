@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,9 +7,10 @@ inherit eutils fdo-mime gnome2-utils pax-utils unpacker
 
 DESCRIPTION="Spotify is a social music platform"
 HOMEPAGE="https://www.spotify.com/ch-de/download/previews/"
+BUILD_ID="103.g15edf1ec"
 SRC_BASE="http://repository.spotify.com/pool/non-free/${PN:0:1}/${PN}-client/"
-SRC_URI="amd64? ( ${SRC_BASE}${PN}-client_${PV}.56.g526cfefe-33_amd64.deb )
-	x86? ( ${SRC_BASE}${PN}-client_${PV}.56.g526cfefe-1_i386.deb )"
+SRC_URI="amd64? ( ${SRC_BASE}${PN}-client_${PV}.${BUILD_ID}-121_amd64.deb )
+	x86? ( ${SRC_BASE}${PN}-client_${PV}.${BUILD_ID}-15_i386.deb )"
 LICENSE="Spotify"
 SLOT="0"
 KEYWORDS="amd64 x86"
@@ -27,7 +28,7 @@ RDEPEND="
 	media-libs/harfbuzz
 	media-libs/fontconfig
 	media-libs/mesa
-	net-misc/curl
+	net-misc/curl[ssl,curl_ssl_openssl]
 	net-print/cups[ssl]
 	x11-libs/gtk+:2
 	x11-libs/libXScrnSaver
