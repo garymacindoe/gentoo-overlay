@@ -1,0 +1,11 @@
+diff -Nuar splashutils-1.5.4.4/src/common.c splashutils-1.5.4.4/src/common.c
+--- splashutils-1.5.4.4/src/common.c	2017-09-19 21:40:12.217804618 +0100
++++ splashutils-1.5.4.4/src/common.c	2017-09-19 21:40:32.234478719 +0100
+@@ -14,6 +14,7 @@
+ #include <string.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
++#include <sys/sysmacros.h>
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <termios.h>
