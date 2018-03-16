@@ -51,8 +51,8 @@ src_prepare() {
 		rm -r plugins/tfsIntegration/lib/native/linux/x86 || die
 	fi
 	if ! use custom-jdk; then
-		if [[ -d jre ]]; then
-			rm -r jre || die
+		if [[ -d jre64 ]]; then
+			rm -r jre64 || die
 		fi
 	fi
 	rm -r plugins/tfsIntegration/lib/native/solaris || die
@@ -67,7 +67,7 @@ src_install() {
 	fperms 755 "${dir}"/bin/{idea.sh,fsnotifier{,64}}
 
 	if use custom-jdk; then
-		if [[ -d jre ]]; then
+		if [[ -d jre64 ]]; then
 		fperms 755 "${dir}"/jre/jre/bin/{java,jjs,keytool,orbd,pack200,policytool,rmid,rmiregistry,servertool,tnameserv,unpack200}
 		fi
 	fi
