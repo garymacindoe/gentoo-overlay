@@ -19,16 +19,14 @@ else
 	KEYWORDS="~amd64 ~x86"
 fi
 
-SRC_URI=" jbr11? ( https://download-cf.jetbrains.com/idea/${MY_PN}IU-${MY_PV}-jbr11.tar.gz -> ${MY_PN}IU-${PV_STRING}-jbr11.tar.gz )
-         !jbr11? (  jbr8? ( https://download-cf.jetbrains.com/idea/${MY_PN}IU-${MY_PV}.tar.gz -> ${MY_PN}IU-${PV_STRING}.tar.gz )
-                   !jbr8? ( https://download-cf.jetbrains.com/idea/${MY_PN}IU-${MY_PV}-no-jbr.tar.gz -> ${MY_PN}IU-${PV_STRING}-no-jbr.tar.gz ) )"
-
+SRC_URI=" jbr? ( https://download.jetbrains.com/idea/${MY_PN}IU-${MY_PV}.tar.gz -> ${MY_PN}IU-${PV_STRING}.tar.gz )
+         !jbr? ( https://download.jetbrains.com/idea/${MY_PN}IU-${MY_PV}-no-jbr.tar.gz -> ${MY_PN}IU-${PV_STRING}-no-jbr.tar.gz )"
 DESCRIPTION="A complete toolset for web, mobile and enterprise development"
 HOMEPAGE="https://www.jetbrains.com/idea"
 
 LICENSE="IDEA
 	|| ( IDEA_Academic IDEA_Classroom IDEA_OpenSource IDEA_Personal )"
-IUSE="+jbr8 jbr11"
+IUSE="+jbr"
 
 DEPEND="!dev-util/${PN}:14
 	!dev-util/${PN}:15"
@@ -61,11 +59,8 @@ src_install() {
 	doins -r *
 	fperms 755 "${dir}"/bin/{idea.sh,fsnotifier{,64}}
 
-	if use jbr8 && ! use jbr11; then
-        fperms 755 "${dir}"/jre64/bin/{clhsdb,hsdb,java,jjs,keytool,orbd,pack200,policytool,rmid,rmiregistry,servertool,tnameserv,unpack200}
-	fi
-	if ! use jbr8 && use jbr11; then
-        fperms 755 "${dir}"/jre64/bin/{jaotc,java,javac,jdb,jjs,jrunscript,keytool,pack200,rmid,rmiregistry,serialver,unpack200}
+	if use jbr; then
+        fperms 755 "${dir}"/jbr/bin/{jaotc,java,javac,jdb,jjs,jrunscript,keytool,pack200,rmid,rmiregistry,serialver,unpack200}
 	fi
 
 	make_wrapper "${PN}" "${dir}/bin/${MY_PN}.sh"
