@@ -1,39 +1,26 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=7
 
-[[ ${PV} == *9999 ]] && SCM="git-r3"
+inherit mount-boot readme.gentoo-r1
 
-inherit readme.gentoo ${SCM}
-
-DESCRIPTION="Raspberry PI boot loader and firmware"
+DESCRIPTION="Raspberry Pi (all versions) bootloader and GPU firmware"
 HOMEPAGE="https://github.com/raspberrypi/firmware"
-
-if [[ ${PV} == *9999 ]]; then
-  EGIT_REPO_URI=https://github.com/raspberrypi/firmware.git
-  KEYWORDS=""
-  S="${WORKDIR}/${P}/boot"
-else
-  SRC_URI="https://github.com/raspberrypi/firmware/archive/${PV}.tar.gz -> ${P}.tar.gz"
-  KEYWORDS="~arm"
-  S="${WORKDIR}/firmware-${PV}/boot"
-fi
-
-
 LICENSE="GPL-2 raspberrypi-videocore-bin"
 SLOT="0"
 
-RESTRICT="binchecks strip"
+if [[ "${PV}" == 9999 ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/raspberrypi/firmware"
+	EGIT_CLONE_TYPE="shallow"
+else
+	SRC_URI="https://github.com/raspberrypi/firmware/archive/${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="-* ~arm"
+	S="${WORKDIR}/firmware-${PV}"
+fi
 
-src_unpack() {
-  if [[ ${PV} == *9999 ]]; then
-    git-r3_src_unpack
-  else
-    unpack ${A}
-  fi
-}
+RESTRICT="binchecks strip"
 
 pkg_preinst() {
 	if [ -z "${REPLACING_VERSIONS}" ] ; then
@@ -56,14 +43,18 @@ pkg_preinst() {
 
 src_install() {
 	insinto /boot
-	local a
-	for a in bootcode.bin fixup{,_cd,_db,_x}.dat start{,_cd,_db,_x}.elf ; do
-		newins "${S}"/${a} ${a}
-	done
-	newins "${FILESDIR}"/config.txt config.txt
-	newins "${FILESDIR}"/cmdline.txt cmdline.txt
-	newenvd "${FILESDIR}"/envd 90${PN}
+	cd boot || die
+	doins bootcode.bin fixup*.dat start*elf
+	doins *.dtb
+	doins -r overlays
+	newins "${FILESDIR}"/${PN}-0_p20130711-config.txt config.txt
+	newins "${FILESDIR}"/${PN}-0_p20130711-cmdline.txt cmdline.txt
+	newenvd "${FILESDIR}"/${PN}-0_p20130711-envd 90${PN}
 	readme.gentoo_create_doc
+}
+
+pkg_postinst() {
+	readme.gentoo_print_elog
 }
 
 DOC_CONTENTS="Please configure your ram setup by editing /boot/config.txt"
