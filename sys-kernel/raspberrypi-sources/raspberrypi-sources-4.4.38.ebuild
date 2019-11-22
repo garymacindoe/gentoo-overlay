@@ -21,7 +21,7 @@ inherit git-r3
 DESCRIPTION="Raspberry PI kernel sources"
 HOMEPAGE="https://github.com/raspberrypi/linux"
 
-KEYWORDS="~arm"
+KEYWORDS="~arm ~arm64"
 
 src_unpack() {
 	git-r3_src_unpack
