@@ -17,7 +17,7 @@ git -C "${FIRMWARE}" log --pretty=format:"%s %h" -- extra/git_hash | grep -E "^k
   fi
   if [ -f "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.9999.ebuild" ] && [ ! -f "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.${v[2]}.ebuild" ]
     then
-    sed -e "s/ versionator$//" -e "s/^EGIT_BRANCH=.*$/EGIT_BRANCH=\"rpi-${v[0]}.${v[1]}.y\"\nEGIT_COMMIT=\"${h}\"/" -e "s/^KEYWORDS=\"\"$/KEYWORDS=\"~arm\"/" "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.9999.ebuild" > "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.${v[2]}.ebuild"
+    sed -e "s/ versionator$//" -e "s/^EGIT_BRANCH=.*$/EGIT_BRANCH=\"rpi-${v[0]}.${v[1]}.y\"\nEGIT_COMMIT=\"${h}\"/" -e "s/^KEYWORDS=\"\"$/KEYWORDS=\"~arm ~arm64\"/" "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.9999.ebuild" > "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.${v[2]}.ebuild"
     ebuild "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.${v[2]}.ebuild" manifest
     git add "${OVERLAY}/sys-kernel/raspberrypi-sources/raspberrypi-sources-${v[0]}.${v[1]}.${v[2]}.ebuild" Manifest
     git commit -m"sys-kernel/raspberrypi-sources-${v[0]}.${v[1]}.${v[2]}: version bump"
