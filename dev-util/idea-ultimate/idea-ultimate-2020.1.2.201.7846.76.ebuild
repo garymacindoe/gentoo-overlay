@@ -38,9 +38,6 @@ QA_PREBUILT="opt/${PN}-${MY_PV}/*"
 
 src_prepare() {
     eapply_user
-	if ! use arm; then
-		rm bin/fsnotifier-arm || die
-	fi
     if ! use ppc; then
         rm -r lib/pty4j-native/linux/ppc64le || die
     fi
