@@ -5,12 +5,12 @@ EAPI=6
 inherit eutils versionator
 
 SLOT="0"
-PV_STRING="$(get_version_component_range 4-6)"
-MY_PV="$(get_version_component_range 1-3)"
+PV_STRING="$(get_version_component_range 3-5)"
+MY_PV="$(get_version_component_range 1-2)"
 MY_PN="idea"
 
 # distinguish settings for official stable releases and EAP-version releases
-if [[ "$(get_version_component_range 7)x" = "prex" ]]
+if [[ "$(get_version_component_range 6)x" = "prex" ]]
 then
 	# upstream EAP
 	KEYWORDS=""
